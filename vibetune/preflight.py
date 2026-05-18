@@ -36,5 +36,5 @@ def check() -> None:
     print(_install_instructions(missing))
     if platform.system() == "Darwin":
         print("\n  (Get Homebrew at https://brew.sh if you don't have it)")
-    print("\nThen re-run autotune.")
+    print("\nThen re-run vibetune.")
     sys.exit(1)

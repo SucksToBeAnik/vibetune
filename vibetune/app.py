@@ -1,4 +1,4 @@
-"""autotune main TUI application.
+"""vibetune main TUI application.
 
 A simple, snappy REPL: describe a vibe, generate, audition, edit, save or discard.
 """
@@ -52,10 +52,11 @@ class AppState:
 # ---------- UI helpers ----------
 
 BANNER = r"""
-  __ _ _   _| |_ ___ | |_ _   _ _ __   ___
- / _` | | | | __/ _ \| __| | | | '_ \ / _ \
-| (_| | |_| | || (_) | |_| |_| | | | |  __/
- \__,_|\__,_|\__\___/ \__|\__,_|_| |_|\___|
+ _   _ _ _          _____            
+| | | (_) |__   ___|_   _|   _ _ __  ___ 
+| | | | | '_ \ / _ \ | || | | | '_ \/ _ \
+| |_| | | |_) |  __/ | || |_| | | | |  __/
+ \___/|_|_.__/ \___| |_| \__,_|_| |_|\___|
 """
 
 
@@ -70,7 +71,7 @@ COMMANDS = [
 
 def print_banner() -> None:
     console.print(Text(BANNER, style="bold cyan"))
-    console.print("[dim]Local-LLM MIDI music generator. Type [bold]help[/bold] for commands.[/dim]\n")
+    console.print("[dim]Local-LLM MIDI music generator for videos. Type [bold]help[/bold] for commands.[/dim]\n")
 
 
 def print_help() -> None:
@@ -494,7 +495,7 @@ def run() -> None:
     try:
         while True:
             try:
-                line = session.prompt("autotune> ").strip()
+                line = session.prompt("vibetune> ").strip()
             except (KeyboardInterrupt, EOFError):
                 console.print()
                 break

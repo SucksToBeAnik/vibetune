@@ -7,7 +7,7 @@ from pathlib import Path
 
 # ---------- Paths ----------
 HOME = Path.home()
-DATA_DIR = Path(os.environ.get("AUTOTUNE_HOME", HOME / ".autotune"))
+DATA_DIR = Path(os.environ.get("VIBETUNE_HOME", HOME / ".vibetune"))
 CACHE_DIR = DATA_DIR / "cache"          # working/auditioning files
 LIBRARY_DIR = DATA_DIR / "library"      # saved music
 PRESETS_FILE = DATA_DIR / "presets.json"
@@ -17,7 +17,7 @@ for d in (DATA_DIR, CACHE_DIR, LIBRARY_DIR):
 
 # ---------- Ollama ----------
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = os.environ.get("AUTOTUNE_MODEL", "qwen3.5:4b")
+OLLAMA_MODEL = os.environ.get("VIBETUNE_MODEL", "qwen3.5:4b")
 
 # ---------- Generation defaults ----------
 DEFAULT_MIDI_DURATION = 30   # seconds
@@ -38,7 +38,7 @@ SOUNDFONT_CANDIDATES = [
 
 def find_soundfont() -> str | None:
     """Return path to a usable .sf2 file, or None."""
-    env = os.environ.get("AUTOTUNE_SOUNDFONT")
+    env = os.environ.get("VIBETUNE_SOUNDFONT")
     if env and Path(env).is_file():
         return env
     for p in SOUNDFONT_CANDIDATES:

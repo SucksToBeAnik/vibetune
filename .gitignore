@@ -11,8 +11,8 @@ build/
 .venv/
 .python-version
 
-# autotune runtime data
-.autotune/
+# vibetune runtime data
+.vibetune/
 
 # macOS
 .DS_Store

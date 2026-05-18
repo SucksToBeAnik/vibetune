@@ -1,7 +1,7 @@
 [project]
-name = "autotune"
+name = "vibetune"
 version = "0.1.0"
-description = "Local-LLM-driven terminal music generator"
+description = "Local-LLM-driven terminal based music generator"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -28,10 +28,10 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/suckstobeanik/autotune"
+Repository = "https://github.com/suckstobeanik/vibetune"
 
 [project.scripts]
-autotune = "autotune.__main__:main"
+vibetune = "vibetune.__main__:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -1,4 +1,4 @@
-"""autotune entry point."""
+"""vibetune entry point."""
 
 from .preflight import check
 
