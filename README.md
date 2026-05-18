@@ -12,18 +12,17 @@ A lightweight terminal music generator that uses local LLMs (via Ollama) as the 
 - **Variations**: Generate riffs on a track you liked
 - **Save/discard**: Audition before committing
 
-## Setup
+## Installation
 
-### 1. Install Ollama and a model
+### 1. Install prerequisites
+
+**Ollama** — runs the local LLM ([ollama.com](https://ollama.com)):
 
 ```bash
-# https://ollama.com
 ollama pull qwen3.5:4b
 ```
 
-### 2. Install system dependencies
-
-vibetune will tell you if these are missing when you run it.
+**FluidSynth** — MIDI synthesis (vibetune will remind you if it's missing):
 
 ```bash
 # macOS
@@ -33,15 +32,13 @@ brew install fluidsynth
 sudo apt install fluidsynth fluid-soundfont-gm
 ```
 
-### 3. Install vibetune
+### 2. Install vibetune
 
 ```bash
-uv tool install vibetune
-# or from source:
-uv tool install .
+pip install vibetune
 ```
 
-### 4. Run
+### 3. Run
 
 ```bash
 vibetune
@@ -49,17 +46,70 @@ vibetune
 
 ## Usage
 
-Once running, describe a vibe and hit enter:
+### Generating a track
+
+Describe any vibe and vibetune composes a MIDI track via the local LLM:
 
 ```
-vibetune> lofi study beat, rainy afternoon, jazzy chords
-vibetune> upbeat 8-bit adventure theme, fast tempo
-vibetune> dark ambient drone, cinematic, building tension
+vibetune> gen lofi study beat, rainy afternoon, jazzy chords
+vibetune> gen upbeat 8-bit adventure theme, fast tempo
+vibetune> gen dark ambient drone, cinematic, building tension
 ```
 
-Then audition with `play`, trim with `trim 0 30`, loop with `loop`, save with `save`, or generate a variation with `vary`.
+### Auditioning and editing
 
-Type `help` in the app for the full command list.
+```
+vibetune> play               # play the current track
+vibetune> pause              # pause
+vibetune> resume             # resume
+vibetune> stop               # stop playback
+
+vibetune> trim 0 30          # cut to the first 30 seconds
+vibetune> trim 0:10 0:45     # also accepts mm:ss format
+vibetune> loop               # crossfade the end into the start for seamless looping
+vibetune> loop 2.5           # longer crossfade (seconds)
+vibetune> undo               # revert the last edit
+
+vibetune> info               # show key, tempo, instruments, chord progression
+```
+
+### Saving
+
+```
+vibetune> save               # save with an auto-generated name
+vibetune> save my_track      # save with a custom name
+vibetune> library            # list all saved tracks
+vibetune> discard            # throw away the current track without saving
+```
+
+### Variations
+
+Generate a new track with the same vibe but different chords, tempo, and instruments:
+
+```
+vibetune> vary
+```
+
+### Presets
+
+Save a vibe you like and reuse it later:
+
+```
+vibetune> preset save              # interactive: pick current vibe or enter a new one
+vibetune> preset list              # show all saved presets
+vibetune> preset use lofi-study    # generate a track from a preset
+vibetune> preset edit lofi-study   # edit the preset's name or vibe inline
+vibetune> preset delete lofi-study # remove a preset
+```
+
+### Other
+
+```
+vibetune> duration 60        # set default track length to 60 seconds
+vibetune> model qwen3.5:9b   # switch to a different Ollama model
+vibetune> help               # full command reference
+vibetune> quit
+```
 
 ## Configuration
 
@@ -69,18 +119,3 @@ Type `help` in the app for the full command list.
 | `VIBETUNE_MODEL`     | `qwen3.5:4b`             | Ollama model to use               |
 | `VIBETUNE_SOUNDFONT` | auto-detected            | Path to a custom `.sf2` soundfont |
 | `OLLAMA_HOST`        | `http://localhost:11434` | Ollama server URL                 |
-
-## Project structure
-
-```
-vibetune/
-├── __main__.py    # Entry point + preflight check
-├── preflight.py   # System dependency check (fail fast)
-├── app.py         # Main REPL/TUI
-├── brain.py       # Ollama LLM interface
-├── midi_gen.py    # MIDI generation + synthesis
-├── player.py      # Audio playback
-├── editor.py      # Trim, loop, fade
-├── presets.py     # Save/load vibes
-└── config.py      # Paths and defaults
-```
