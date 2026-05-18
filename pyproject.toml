@@ -1,6 +1,6 @@
 [project]
 name = "vibetune"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local-LLM-driven terminal based music generator"
 readme = "README.md"
 license = { text = "MIT" }
